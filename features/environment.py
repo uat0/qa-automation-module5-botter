@@ -25,5 +25,7 @@ def after_scenario(context,scenario):
 
 
 def after_all(context):
-    context.browser.close()
-    context.playwright.stop()
+    if hasattr(context,"browser"):
+        context.browser.close()
+    if hasattr(context,"playwright"):
+        context.playwright.stop()

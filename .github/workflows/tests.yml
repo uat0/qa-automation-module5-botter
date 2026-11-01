@@ -14,8 +14,13 @@ concurrency:
 
 jobs:
   regression:
+    name: regression (${{ matrix.browser }})
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox]
     env:
       PIP_INDEX_URL: https://pypi-mirror.gitverse.ru/simple/
     steps:
@@ -34,21 +39,21 @@ jobs:
       - name: Install pinned dependencies through mirror
         run: |
           python -m pip install -r requirements.txt
-          python -m playwright install --with-deps chromium
+          python -m playwright install --with-deps ${{ matrix.browser }}
           npm install --global allure-commandline@2.46.1
       - name: Restore report history
         uses: actions/cache/restore@v4
         with:
           path: results/allure-report/history
-          key: allure-${{ github.ref_name }}-${{ github.run_id }}
-          restore-keys: allure-${{ github.ref_name }}-
+          key: allure-${{ matrix.browser }}-${{ github.ref_name }}-${{ github.run_id }}
+          restore-keys: allure-${{ matrix.browser }}-${{ github.ref_name }}-
       - name: Run Unit API UI and BDD tests
-        run: python scripts/run_suite.py --run ci${{ github.run_number }}
+        run: python scripts/run_suite.py --run ci${{ github.run_number }}-${{ matrix.browser }} --browser ${{ matrix.browser }}
       - name: Upload results and rendered Allure report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: module5-results-${{ github.run_number }}
+          name: module5-results-${{ matrix.browser }}-${{ github.run_number }}
           path: results/
           retention-days: 30
       - name: Preserve Allure history
@@ -56,4 +61,4 @@ jobs:
         uses: actions/cache/save@v4
         with:
           path: results/allure-report/history
-          key: allure-${{ github.ref_name }}-${{ github.run_id }}
+          key: allure-${{ matrix.browser }}-${{ github.ref_name }}-${{ github.run_id }}

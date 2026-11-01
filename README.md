@@ -65,7 +65,7 @@ API-тест регистрации создаёт уникального уче
 
 ## CI и отчёты
 
-[GitHub Actions](https://github.com/uat0/qa-automation-module5-botter/actions) запускает полный набор при `push`, `pull_request` и вручную. Код выхода pytest/Behave сохраняется. Даже при ошибке загружается артефакт `module5-results-N`: JUnit XML, JSON, HTML, логи, покрытие, Allure results и готовый Allure report. История переносится между CI-запусками через GitHub Actions cache.
+[GitHub Actions](https://github.com/uat0/qa-automation-module5-botter/actions) запускает полный набор при `push`, `pull_request` и вручную в двух независимых заданиях Chromium и Firefox на Ubuntu. Код выхода pytest/Behave сохраняется. Даже при ошибке загружается артефакт `module5-results-BROWSER-N`: JUnit XML, JSON, HTML, логи, покрытие, Allure results и готовый Allure report. История каждого браузера переносится между CI-запусками через отдельный GitHub Actions cache.
 
 При скачивании артефакта откройте Allure командой `allure open results/allure-report` либо запустите `python -m http.server 8000 --directory results/allure-report` и перейдите на http://localhost:8000. Прямое открытие `index.html` через `file://` может ограничивать загрузку JSON.
 
