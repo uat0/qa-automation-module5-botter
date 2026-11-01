@@ -15,7 +15,7 @@ def test_empty_form(practice_form):
     """TC-15: all four required fields are checked."""
     practice_form.submit()
     practice_form.assert_rejected()
-    assert {"firstName","lastName","userNumber"} <= set(practice_form.invalid_fields())
+    assert {"firstName","lastName","gender-radio-1","userNumber"} <= set(practice_form.invalid_fields())
 
 
 @pytest.mark.ddt
