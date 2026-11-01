@@ -4,6 +4,8 @@
 
 Объект: [Practice Form](https://demoqa.com/automation-practice-form) из модуля 4 и [Book Store API](https://demoqa.com/swagger/).
 
+Рабочая станция: **Windows 11 Pro 26H2**, пользовательский браузер **Google Chrome 156.0.8078.80**. Автоматические контрольные прогоны выполнялись изолированным Chromium Playwright, а в GitHub Actions — Chromium и Firefox на Ubuntu. Подробности: [docs/environment.md](docs/environment.md).
+
 Проект содержит 42 Unit-проверки, 7 API-проверок, 17 UI-проверок и 2 BDD-сценария. Unit-тесты проверяют собственные эталонные валидаторы из `app/`, а не исходный код DemoQA. Покрытие `app/` не означает покрытие кода сайта.
 
 ## Запуск
@@ -81,4 +83,4 @@ API-тест регистрации создаёт уникального уче
 
 Трассировка: [docs/traceability.md](docs/traceability.md). Результаты и ограничения: [docs/results.md](docs/results.md).
 
-Готовый отчёт, архив кода и архив доказательств входят в комплект для сдачи. Удалённые результаты доступны в [проверенном запуске GitHub Actions](https://github.com/uat0/qa-automation-module5-botter/actions/runs/41305042697). Проверка требований: [docs/requirements-checklist.md](docs/requirements-checklist.md).
+Готовый отчёт, архив кода и архив доказательств входят в комплект для сдачи. Удалённые результаты доступны в [проверенном запуске GitHub Actions](https://github.com/uat0/qa-automation-module5-botter/actions/runs/41306217429). Проверка требований: [docs/requirements-checklist.md](docs/requirements-checklist.md).
