@@ -80,3 +80,5 @@ API-тест регистрации создаёт уникального уче
 `python scripts/collect_metrics.py` строит `results/metrics.json` из фактических файлов запусков. Pass Rate = passed / total, где XFAIL включён в знаменатель и показан отдельно. Flaky Rate считается по изменению статуса одного и того же pytest nodeid в повторных прогонах одинакового браузера; другой браузер не смешивается с этим расчётом. Короткая серия не доказывает отсутствие нестабильности в дальнейшем. ROI рассчитывается как модель при явно заданных предположениях о ручном времени и трудозатратах.
 
 Трассировка: [docs/traceability.md](docs/traceability.md). Результаты и ограничения: [docs/results.md](docs/results.md).
+
+Готовый отчёт, архив кода и архив доказательств входят в комплект для сдачи. Удалённые результаты доступны в [проверенном запуске GitHub Actions](https://github.com/uat0/qa-automation-module5-botter/actions/runs/41305042697). Проверка требований: [docs/requirements-checklist.md](docs/requirements-checklist.md).
