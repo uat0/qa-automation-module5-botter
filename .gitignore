@@ -1,0 +1,13 @@
+.venv/
+env/
+__pycache__/
+.pytest_cache/
+.coverage*
+results/
+allure-results/
+allure-report/
+htmlcov/
+test-results/
+*.pyc
+node_modules/
+.env

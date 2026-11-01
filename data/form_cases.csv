@@ -1,0 +1,9 @@
+id,first_name,last_name,mobile,email,expected
+TC-07,Вадим,Боттер,9991234567,,accepted
+TC-06,Вадим,Боттер,999123456,,rejected
+TC-03,Вадим,Боттер,9991234567,usermail.ru,rejected
+TC-09a,Вадим,Боттер,9991234567,user@mail.r,rejected
+TC-09b,Вадим,Боттер,9991234567,user@mail.ru,accepted
+TC-09c,Вадим,Боттер,9991234567,user@mail.abcde,accepted
+TC-13,В,Б,9991234567,,accepted
+TC-14,Вадим,Боттер,9991234567,vadim.botter@example.com,accepted
