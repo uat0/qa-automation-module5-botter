@@ -73,7 +73,7 @@ API-тест регистрации создаёт уникального уче
 
 Зависимости установлены через PyPI-зеркало GitVerse. В CI оно задано переменной `PIP_INDEX_URL`. Файл `config/pip.ini` позволяет настроить то же зеркало для отдельного окружения. Настройки ОС пользователя автоматически не меняются.
 
-`config/daemon.json` содержит шаблон зеркала Docker Hub `https://dh-mirror.gitverse.ru`. При использовании Docker его нужно объединить с существующими настройками Docker Engine. Selenoid — опциональная часть задания; здесь кросс-браузерность проверяется непосредственно Playwright в Chromium и Firefox. Подключение Playwright по CDP к обычному WebDriver-порту Selenoid некорректно; для Selenoid нужен Selenium Remote WebDriver.
+`config/daemon.json` содержит зеркало Docker Hub `https://dh-mirror.gitverse.ru`. В CI оно объединяется с существующими настройками одноразового Docker Engine, активируется и проверяется через `docker info`, `docker pull` и запуск `hello-world`. Настройки Docker на рабочем компьютере не меняются. Selenoid — опциональная часть задания; здесь кросс-браузерность проверяется непосредственно Playwright в Chromium и Firefox. Подключение Playwright по CDP к обычному WebDriver-порту Selenoid некорректно; для Selenoid нужен Selenium Remote WebDriver.
 
 ## Метрики
 

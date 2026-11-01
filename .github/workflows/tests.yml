@@ -24,25 +24,35 @@ jobs:
     env:
       PIP_INDEX_URL: https://pypi-mirror.gitverse.ru/simple/
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-python@v7.1.0
         with:
           python-version: '3.12'
           cache: pip
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v6.1.0
         with:
           distribution: temurin
           java-version: '21'
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7.1.0
         with:
           node-version: '22'
+      - name: Configure and verify Docker Hub mirror
+        run: |
+          python scripts/configure_ci_docker.py
+          sudo mkdir -p /etc/docker
+          sudo cp results/docker-daemon.json /etc/docker/daemon.json
+          sudo systemctl restart docker
+          docker info --format '{{json .RegistryConfig.Mirrors}}' | tee results/docker-mirrors.json
+          python -c "import json; assert 'https://dh-mirror.gitverse.ru/' in json.load(open('results/docker-mirrors.json'))"
+          docker pull hello-world:latest
+          docker run --rm hello-world
       - name: Install pinned dependencies through mirror
         run: |
           python -m pip install -r requirements.txt
           python -m playwright install --with-deps ${{ matrix.browser }}
           npm install --global allure-commandline@2.46.1
       - name: Restore report history
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v6.1.0
         with:
           path: results/allure-report/history
           key: allure-${{ matrix.browser }}-${{ github.ref_name }}-${{ github.run_id }}
@@ -51,14 +61,14 @@ jobs:
         run: python scripts/run_suite.py --run ci${{ github.run_number }}-${{ matrix.browser }} --browser ${{ matrix.browser }}
       - name: Upload results and rendered Allure report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7.0.2
         with:
           name: module5-results-${{ matrix.browser }}-${{ github.run_number }}
           path: results/
           retention-days: 30
       - name: Preserve Allure history
         if: always()
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v6.1.0
         with:
           path: results/allure-report/history
           key: allure-${{ matrix.browser }}-${{ github.ref_name }}-${{ github.run_id }}
